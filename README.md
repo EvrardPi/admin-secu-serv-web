@@ -47,11 +47,10 @@ evrardpi/limhu-frontend:1.0.0
 evrardpi/limhu-backend:1.0.0
 
 # Certbot auto-renewal
-sudo certbot renew --dry-run
-sudo crontab -e
-30 2 * * * /usr/bin/certbot renew --quiet --renew-hook "systemctl reload nginx"
-sudo crontab -l
-sudo /usr/bin/certbot renew --dry-run
+On the server:
+    sudo crontab -e
+        put:
+            0 3 * * 1 /home/pierre/nginx/renew_certificates.sh
 
 Pour Quentin Hermiteau:
 Les credentials des services sont différents sur le serveur pour des raisons de sécurité étant donné que le dépôt est public.
