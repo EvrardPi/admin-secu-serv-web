@@ -51,6 +51,40 @@ On the server:
     sudo crontab -e
         put:
             0 3 * * 1 /home/pierre/nginx/renew_certificates.sh
+    to test it:
+        /home/pierre/nginx/renew_certificates.sh
+    and see logs:
+        cat /home/pierre/certbot_renew.log
+
+# Fail2ban
+sudo apt-get install fail2ban
+
+sudo nano /etc/ssh/sshd_config
+    put:
+        # Logging
+        SyslogFacility AUTH
+        LogLevel VERBOSE
+
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+sudo nano /etc/fail2ban/jail.local
+    put:
+        [sshd]
+        enabled  = true
+        port     = ssh
+        backend = systemd
+        maxretry = 3
+        findtime = 10m
+        bantime  = 10m
+
+sudo fail2ban-client -t
+sudo systemctl restart fail2ban
+sudo systemctl status fail2ban
+sudo fail2ban-client status
+sudo fail2ban-client status sshd
+sudo cat -n /var/log/fail2ban.log
+sudo journalctl -u fail2ban.service
+sudo fail2ban-client set [jailname] banip/unbanip [IP]
+
 
 Pour Quentin Hermiteau:
 Les credentials des services sont différents sur le serveur pour des raisons de sécurité étant donné que le dépôt est public.
