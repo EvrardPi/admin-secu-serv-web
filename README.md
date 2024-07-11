@@ -40,7 +40,7 @@ On your computer:
 https://limhu.fr/
 https://front.limhu.scrypteur.com/
 https://back.limhu.scrypteur.com/
-https://adminer.limhu.scrypteur.com/
+https://admr.limhu.scrypteur.com/
 
 # Docker hub images
 evrardpi/limhu-frontend:1.0.0
